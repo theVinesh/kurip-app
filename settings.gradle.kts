@@ -1,4 +1,4 @@
-rootProject.name = "My application"
+rootProject.name = "kurip-app"
 
 include(":androidApp")
 include(":shared")
