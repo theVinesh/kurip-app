@@ -44,9 +44,9 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                api("androidx.activity:activity-compose:1.7.0")
+                api("androidx.activity:activity-compose:1.7.2")
                 api("androidx.appcompat:appcompat:1.6.1")
-                api("androidx.core:core-ktx:1.10.0")
+                api("androidx.core:core-ktx:1.12.0")
             }
         }
         val iosX64Main by getting

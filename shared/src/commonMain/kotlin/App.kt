@@ -1,3 +1,6 @@
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material.Button
+import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -17,7 +20,15 @@ fun App() {
         val stringState = emitter.flow.collectAsState()
 
         Scaffold {
-            Text(text = stringState.value)
+            Card {
+                Column {
+                    Text(text = stringState.value)
+                    Button(onClick = { }) {
+                        Text(text = "Click me")
+                    }
+                }
+            }
+
         }
     }
 }
