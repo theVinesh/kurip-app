@@ -1,8 +1,12 @@
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
+import java.util.Properties
+
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
     id("org.jetbrains.compose")
+    id("com.codingfeline.buildkonfig") version "0.14.0" apply true
 }
 
 kotlin {
@@ -26,9 +30,13 @@ kotlin {
             "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
     }
 
+    val versions = object {
+        val ktor = "2.3.4"
+    }
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation("com.aallam.openai:openai-client:3.4.0")
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)
@@ -47,6 +55,7 @@ kotlin {
                 api("androidx.activity:activity-compose:1.7.2")
                 api("androidx.appcompat:appcompat:1.6.1")
                 api("androidx.core:core-ktx:1.12.0")
+                implementation("io.ktor:ktor-client-android:${versions.ktor}")
             }
         }
         val iosX64Main by getting
@@ -57,6 +66,9 @@ kotlin {
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+            dependencies {
+                implementation("io.ktor:ktor-client-darwin:${versions.ktor}")
+            }
         }
     }
 }
@@ -79,5 +91,16 @@ android {
     }
     kotlin {
         jvmToolchain(11)
+    }
+}
+
+buildkonfig {
+    packageName = "com.thevinesh.kurip.shared"
+    val properties = Properties().apply {
+        load(project.rootProject.file("local.properties").inputStream())
+    }
+    val openAiKey = properties.getProperty("openai.key")
+    defaultConfigs {
+        buildConfigField(STRING, "OPENAI_KEY", openAiKey)
     }
 }
