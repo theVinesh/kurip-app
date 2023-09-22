@@ -6,7 +6,7 @@ plugins {
     kotlin("native.cocoapods")
     id("com.android.library")
     id("org.jetbrains.compose")
-    id("com.codingfeline.buildkonfig") version "0.14.0" apply true
+    id("com.codingfeline.buildkonfig") version "0.14.0"
 }
 
 kotlin {
@@ -26,8 +26,6 @@ kotlin {
             baseName = "shared"
             isStatic = true
         }
-        extraSpecAttributes["resources"] =
-            "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
     }
 
     val versions = object {
@@ -48,6 +46,7 @@ kotlin {
                         strictly(coroutinesCoreVersion)
                     }
                 }
+                implementation("io.ktor:ktor-client-core:${versions.ktor}")
             }
         }
         val androidMain by getting {
@@ -55,7 +54,7 @@ kotlin {
                 api("androidx.activity:activity-compose:1.7.2")
                 api("androidx.appcompat:appcompat:1.6.1")
                 api("androidx.core:core-ktx:1.12.0")
-                implementation("io.ktor:ktor-client-android:${versions.ktor}")
+                implementation("io.ktor:ktor-client-okhttp:${versions.ktor}")
             }
         }
         val iosX64Main by getting
