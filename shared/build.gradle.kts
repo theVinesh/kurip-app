@@ -34,6 +34,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1")
                 implementation("com.aallam.openai:openai-client:3.4.0")
                 implementation(compose.runtime)
                 implementation(compose.foundation)

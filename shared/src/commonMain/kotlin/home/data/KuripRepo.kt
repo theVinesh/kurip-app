@@ -1,22 +1,22 @@
 package home.data
 
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import model.KuripModel
 
 class KuripRepo(
-    inMemorySource: InMemorySource = InMemorySource()
+    private val inMemorySource: InMemorySource = InMemorySource()
 ) {
     private val _kuripFlow = MutableStateFlow(emptyList<KuripModel>())
+    val kuripFlow = _kuripFlow.asStateFlow()
 
-    fun getKurips(): StateFlow<List<KuripModel>> {
-        return _kuripFlow.asStateFlow()
+    suspend fun refreshKurips() {
+        _kuripFlow.value = inMemorySource.getKurips().sortedByDescending { it.lastModified }
     }
 
-    fun addKurip(kurip: KuripModel) {
-        _kuripFlow.update { it + kurip }
+    suspend fun addKurip(kurip: KuripModel) {
+        inMemorySource.addKurip(kurip)
+        refreshKurips()
     }
 }
 

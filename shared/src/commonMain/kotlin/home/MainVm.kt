@@ -11,9 +11,15 @@ class MainVm(
     private val kuripRepo: KuripRepo = KuripRepo(),
     coroutineDispatcher: CoroutineDispatcher = Dispatchers.Default
 ) {
-    val kuripFlow = kuripRepo.getKurips()
+    val kuripFlow = kuripRepo.kuripFlow
 
     private val vmScope = CoroutineScope(coroutineDispatcher)
+
+    init {
+        vmScope.launch {
+            kuripRepo.refreshKurips()
+        }
+    }
 
     fun addKurip(text: String) {
         vmScope.launch {
