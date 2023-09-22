@@ -9,7 +9,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,12 +34,12 @@ fun PromptBar(onSend: (String) -> Unit = {}) {
         modifier = Modifier.fillMaxWidth(),
         value = value.value,
         onValueChange = { value.value = it },
-        label = { Text("Prompt") },
+        label = { Text("New Kurip") },
         keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Send),
         keyboardActions = KeyboardActions(onSend = { sendPrompt() }),
         trailingIcon = {
             Icon(
-                imageVector = Icons.Default.KeyboardArrowDown,
+                imageVector = Icons.Default.Close,
                 contentDescription = "Close",
                 modifier = Modifier
                     .padding(8.dp)
