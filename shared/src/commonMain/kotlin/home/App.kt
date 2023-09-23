@@ -3,19 +3,19 @@ package home
 import KuripTheme
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ListItem
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import ui.KuripSurface
 import ui.PromptBar
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun App(
     vm: MainVm = remember { MainVm() }
@@ -35,9 +35,14 @@ fun App(
                     reverseLayout = true,
                 ) {
                     items(state.value.size) { index ->
-                        ListItem(
-                            text = { Text(state.value[index].body) },
-                        )
+                        KuripSurface(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                        ) {
+                            Text(
+                                text = state.value[index].body,
+                            )
+                        }
                     }
                 }
             }
